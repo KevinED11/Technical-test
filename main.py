@@ -23,13 +23,21 @@ def get_transacciones():
                 "tarjeta": "0123-4567-8901-2345"}
             ]
 
-def filter_by_date(transaccions, start_time: datetime, end_time: datetime) -> list[dict]:
+def filter_by_date(transaccions: list[dict], start_time: datetime, end_time: datetime) -> list[dict]:
     print(start_time, end_time)
+    if not isinstance(start_time, datetime) or not isinstance(end_time, datetime):
+        raise ValueError("Place datetime objet")
+    
     return [transaccion for transaccion in transaccions if start_time >= datetime.fromisoformat(transaccion["fecha"]) <= end_time]
 
 
 def sum_ammount_transaccions(transaccions: list[dict]) -> float:
+    if not transaccions:
+        raise ValueError("list is empty"
+                         )
     sum_ammounts: float = float(sum([ammount["monto"] for ammount in transaccions]))
+
+
   
     return sum_ammounts
 
